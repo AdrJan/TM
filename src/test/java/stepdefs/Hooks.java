@@ -1,9 +1,9 @@
 package stepdefs;
 
 import io.cucumber.java.Before;
-import setup.TestSetup;
+import setup.TestBase;
 
-public class Hooks extends TestSetup {
+public class Hooks extends TestBase {
 
     @Before
     public void init(){

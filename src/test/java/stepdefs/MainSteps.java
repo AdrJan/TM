@@ -4,13 +4,14 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import setup.TestSetup;
+import pop.products.ProductsList;
+import setup.TestBase;
 
-public class MainSteps extends TestSetup {
+public class MainSteps extends TestBase {
 
     private final static String PAGE_URL = "https://allegro.pl";
+
+    ProductsList productsList = new ProductsList();
 
     private String productName;
 
@@ -30,17 +31,14 @@ public class MainSteps extends TestSetup {
 
     @When("user clicks on {int} promoted product")
     public void user_clicks_on_promoted_product(Integer productIndex) {
-        String XPATH = "//h2[contains(., 'Oferty promowane')]/..//article[%d]//h2/a";
-
-        WebElement webElement = driver.findElement(By.xpath(String.format(XPATH, productIndex)));
-        productName = webElement.getText();
-        webElement.click();
+        productName = productsList.getPromotedProductName(productIndex);
+        productsList.selectPromotedProduct(productIndex);
     }
 
     @Then("product info is correct")
     public void product_info_is_correct() {
-        Assert.assertTrue(
-                driver.findElements(By.xpath(String.format("//h1[contains(text(), '%s')]", productName))).size() > 0,
+        assertXpath(
+                String.format("//h1[contains(text(), '%s')]", productName),
                 "Selected product is not correct"
         );
     }

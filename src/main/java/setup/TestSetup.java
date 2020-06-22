@@ -20,13 +20,4 @@ public class TestSetup {
     public void clearCookie() {
         driver.manage().deleteAllCookies();
     }
-
-    public void sleep(long millisecs)
-    {
-        try {
-            Thread.sleep(millisecs);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }
